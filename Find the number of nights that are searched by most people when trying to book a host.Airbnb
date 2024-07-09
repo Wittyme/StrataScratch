@@ -1,0 +1,11 @@
+
+Find the number of nights that are searched by most people when trying to book a host.
+Output the number of nights alongside the total searches.
+Order records based on the total searches in descending order.
+
+
+select n_nights , count(n_nights) as total_searches from airbnb_searches
+where n_nights is not null
+group by n_nights
+order by total_searches desc
+;
