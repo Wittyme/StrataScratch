@@ -1,0 +1,14 @@
+Five Highest Distinct Salaries
+Amazon
+Siemens
+You have been asked to find the five highest distinct salaries. For example, if two people earn the same amount of money, they are counted as one.
+select * from (SELECT 
+    salary,
+    DENSE_RANK() OVER (ORDER BY salary DESC) AS ranking
+FROM 
+    worker
+   
+    group by salary) as sub
+     where  ranking <6
+    
+  ;
