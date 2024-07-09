@@ -1,0 +1,21 @@
+Old And Young Athletes 
+Google
+ESPN
+Medium
+ID 9599
+Find the old-to-young player ratio for each Olympic games.
+'Old' is defined as ages 50 and older and 'young' is defined as athletes 25 or younger. 
+Output the Olympic games, number of old athletes, number of young athletes, and the old-to-young ratio.
+ANSWER:
+
+with cte as(select games ,count(id) as number_old_athletes from olympics_athletes_events
+where age >  50 or age = 50 group by games) , 
+cte2 as (Select games , count(id) as number_young_athletes from olympics_athletes_events
+where age < 25 or age =25 group by games),
+cte3 as (select cte.games, cast(cte.number_old_athletes as float)/cast(cte2.number_young_athletes as float) as old_to_young_ratio from cte inner join cte2 on cte2.games= cte.games)
+select cte.games,cte.number_old_athletes, cte2.number_young_athletes , cte3.old_to_young_ratio
+from cte
+inner join cte2
+on cte2.games = cte.games
+inner join cte3 
+on cte3.games= cte2.games and cte3.games= cte.games
