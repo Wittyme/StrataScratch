@@ -1,0 +1,28 @@
+Workers With The Highest And Lowest Salaries
+Amazon
+Siemens
+You have been asked to find the employees with the highest and lowest salary.
+
+
+Your output should include the employee's ID, salary, and department, as well as a column salary_type that categorizes the output by:
+
+
+
+'Highest Salary' represents the highest salary
+
+'Lowest Salary' represents the lowest salary
+
+SELECT 
+    w.worker_id, 
+    w.salary,
+    CASE 
+        WHEN w.salary = highest.highest_salary THEN 'HighestSalary'
+        WHEN w.salary = lowest.min_salary THEN 'LowestSalary'
+        ELSE 'Other' 
+    END AS salary_type
+FROM 
+    worker w,
+    (SELECT MIN(salary) AS min_salary FROM worker) AS lowest,
+    (SELECT MAX(salary) AS highest_salary FROM worker) AS highest
+WHERE 
+    w.salary = lowest.min_salary OR w.salary = highest.highest_salary;
