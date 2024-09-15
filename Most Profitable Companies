@@ -1,0 +1,12 @@
+Most Profitable Companies
+Forbes
+Medium
+ID 10354
+Find the 3 most profitable companies in the entire world.
+Output the result along with the corresponding company name.
+Sort the result based on profits in descending order.
+ans : with cte as (select *, row_number() over( order by profits desc) as row_no from forbes_global_2010_2014)
+select company, profits
+from cte 
+where row_no <= 3
+order by profits desc;
